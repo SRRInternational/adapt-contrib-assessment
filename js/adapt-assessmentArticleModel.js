@@ -338,6 +338,16 @@ define(["core/js/adapt", "./adapt-assessmentQuestionBank"], function (
       var numberOfQuestionsAnswered = this.get("_numberOfQuestionsAnswered");
       numberOfQuestionsAnswered++;
       this.set("_numberOfQuestionsAnswered", numberOfQuestionsAnswered);
+      if (!questionModel.attributes._parent) {
+        var parentId = questionModel.attributes._parentId || null;
+        var parentModel = _.find(
+          Adapt.blocks._byAdaptID,
+          function (model, key) {
+            if (key === parentId) return model[0];
+          }
+        );
+        questionModel.set("_parent", parentModel[0]);
+      }
       questionModel.set(
         "_blockPageId",
         questionModel.attributes._parent.attributes._assessment._pageID || null
