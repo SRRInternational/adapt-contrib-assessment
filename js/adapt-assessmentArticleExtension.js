@@ -1,11 +1,15 @@
 define([
-  'core/js/views/articleView',
-  'core/js/models/articleModel',
-  './adapt-assessmentArticleView',
-  './adapt-assessmentArticleModel',
-  './assessment'
-], function(ArticleView, ArticleModel, AdaptAssessmentArticleView, AdaptAssessmentArticleModel) {
-
+  "core/js/views/articleView",
+  "core/js/models/articleModel",
+  "./adapt-assessmentArticleView",
+  "./adapt-assessmentArticleModel",
+  "./assessment",
+], function (
+  ArticleView,
+  ArticleModel,
+  AdaptAssessmentArticleView,
+  AdaptAssessmentArticleModel
+) {
   /*
    * Here we are extending the articleView and articleModel in Adapt.
    * This is to accomodate the assessment functionality on the article.
@@ -14,8 +18,11 @@ define([
 
   //Extends core/js/views/articleView.js
   var ArticleViewInitialize = ArticleView.prototype.initialize;
-  ArticleView.prototype.initialize = function(options) {
-    if (this.model.get('_assessment') && this.model.get('_assessment')._isEnabled === true) {
+  ArticleView.prototype.initialize = function (options) {
+    if (
+      this.model.get("_assessment") &&
+      this.model.get("_assessment")._isEnabled === true
+    ) {
       //extend the articleView with new functionality
       _.extend(this, AdaptAssessmentArticleView);
     }
@@ -25,8 +32,11 @@ define([
 
   //Extends core/js/models/articleModel.js
   var ArticleModelInitialize = ArticleModel.prototype.initialize;
-  ArticleModel.prototype.initialize = function(options) {
-    if (this.get('_assessment') && this.get('_assessment')._isEnabled === true) {
+  ArticleModel.prototype.initialize = function (options) {
+    if (
+      this.get("_assessment") &&
+      this.get("_assessment")._isEnabled === true
+    ) {
       //extend the articleModel with new functionality
       _.extend(this, AdaptAssessmentArticleModel);
 
@@ -42,5 +52,4 @@ define([
     //initialize the article in the normal manner if no assessment
     return ArticleModelInitialize.apply(this, arguments);
   };
-
 });

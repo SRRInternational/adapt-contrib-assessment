@@ -133,39 +133,39 @@ Triggered when all the assessments have been restored from 'offline storage' (ty
 
 A description of the stateObject returned by the assessments:events is as follows:
 
-| Attribute                 | Type         | Description|
-| :-------------------------|:-------------|:-----|
-| id                        | string       | The unique id of the assessment |
-| type                      | string       | The assessment type (to allow for future assessment types, currently 'article-assessment' only) |
-| pageId                    | string       | The page to which the assessment belongs (used to reset the assessment before a pageView:preRender event) |
-| isEnabled                 | bool         | Returns a boolean signifying if the assessment is enabled |
-| isComplete                | bool         | Returns a boolean signifying if the assessment is complete |
-| isPercentageBased         | bool         | Returns a boolean signifying if the assessment scoreToPass is percentage based |
-| scoreToPass               | int          | Defines the threshold score to signify a pass |
-| score                     | int          | Returns the current score of the assessment |
-| scoreAsPercent            | int          | Returns the current score of the assessment as a percentage, (maxScore/score) * 100 |
-| maxScore                  | int          | Returns the maximum attainable score |
-| isPass                    | bool         | Returns a boolean signifying if the assessment is passed |
-| postScoreToLms            | bool         | Signifies that the assessment score will be posted to the LMS |
-| assessmentWeight          | int          | Signifies the portion of the total LMS score which is derived from this assessment, (1 = 100%) |
-| attempts                  | int          | The total number of attempts specified by the configuration (0 = infinite) |
-| attemptsSpent             | int          | The total number of attempts spent by the user |
-| attemptsLeft              | int / bool   | The total number of attempts remaining for the user or true if attempts=infinite |
-| lastAttemptScoreAsPercent | int          | Returns the last attempt score |
+| Attribute                 | Type         | Description                                                                                                  |
+| :------------------------ | :----------- | :----------------------------------------------------------------------------------------------------------- |
+| id                        | string       | The unique id of the assessment                                                                              |
+| type                      | string       | The assessment type (to allow for future assessment types, currently 'article-assessment' only)              |
+| pageId                    | string       | The page to which the assessment belongs (used to reset the assessment before a pageView:preRender event)    |
+| isEnabled                 | bool         | Returns a boolean signifying if the assessment is enabled                                                    |
+| isComplete                | bool         | Returns a boolean signifying if the assessment is complete                                                   |
+| isPercentageBased         | bool         | Returns a boolean signifying if the assessment scoreToPass is percentage based                               |
+| scoreToPass               | int          | Defines the threshold score to signify a pass                                                                |
+| score                     | int          | Returns the current score of the assessment                                                                  |
+| scoreAsPercent            | int          | Returns the current score of the assessment as a percentage, (maxScore/score) * 100                          |
+| maxScore                  | int          | Returns the maximum attainable score                                                                         |
+| isPass                    | bool         | Returns a boolean signifying if the assessment is passed                                                     |
+| postScoreToLms            | bool         | Signifies that the assessment score will be posted to the LMS                                                |
+| assessmentWeight          | int          | Signifies the portion of the total LMS score which is derived from this assessment, (1 = 100%)               |
+| attempts                  | int          | The total number of attempts specified by the configuration (0 = infinite)                                   |
+| attemptsSpent             | int          | The total number of attempts spent by the user                                                               |
+| attemptsLeft              | int / bool   | The total number of attempts remaining for the user or true if attempts=infinite                             |
+| lastAttemptScoreAsPercent | int          | Returns the last attempt score                                                                               |
 | questions                 | object array | Contains an array of question objects { _id: string, _isCorrect: bool, title: string, displayTitle: string } |
 
 
 A description of the stateObject returned by the `assessment:complete` event is as follows:  
 
-| Attribute                 | Type         | Description|
-| :-------------------------|:-------------|:-----|
-| isPercentageBased         | bool         | Returns a boolean signifying if the assessment scoreToPass is percentage based |
-| scoreToPass               | int          | Defines the threshold score to signify a pass |
-| score                     | int          | Returns the current score of the assessment |
-| scoreAsPercent            | int          | Returns the current score of the assessment as a percentage, (maxScore/score) * 100 |
-| maxScore                  | int          | Returns the maximum attainable score |
-| isPass                    | bool         | Returns a boolean signifying if the assessment is passed |
-| assessments               | int          | Signifies the number of assessments passed to post back to the LMS |
+| Attribute         | Type | Description                                                                         |
+| :---------------- | :--- | :---------------------------------------------------------------------------------- |
+| isPercentageBased | bool | Returns a boolean signifying if the assessment scoreToPass is percentage based      |
+| scoreToPass       | int  | Defines the threshold score to signify a pass                                       |
+| score             | int  | Returns the current score of the assessment                                         |
+| scoreAsPercent    | int  | Returns the current score of the assessment as a percentage, (maxScore/score) * 100 |
+| maxScore          | int  | Returns the maximum attainable score                                                |
+| isPass            | bool | Returns a boolean signifying if the assessment is passed                            |
+| assessments       | int  | Signifies the number of assessments passed to post back to the LMS                  |
 
 ## Limitations
 

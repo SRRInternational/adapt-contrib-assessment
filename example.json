@@ -3,14 +3,13 @@
         "_scoreToPass": 75,
         "_isPercentageBased": true
     }
-
     // articles.json
     "_assessment": {
         "_isEnabled": true,
         "_id": "Assessment 1",
         "_suppressMarking": false,
-        "_scoreToPass" : 75,
-        "_isPercentageBased" : true,
+        "_scoreToPass": 75,
+        "_isPercentageBased": true,
         "_includeInTotalScore": true,
         "_assessmentWeight": 1,
         "_isResetOnRevisit": false,
@@ -32,11 +31,9 @@
             "_canShowModelAnswer": false
         }
     }
-
     // blocks.json
     "_assessment": {
         "_quizBankID": 1
     }
-
     // components
     "displayTitle": "Question {{questionNumber}} of {{questionCount}}"
