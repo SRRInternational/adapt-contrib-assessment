@@ -296,6 +296,8 @@ define([
       var numberOfQuestionsAnswered = this.get('_numberOfQuestionsAnswered');
       numberOfQuestionsAnswered++;
       this.set('_numberOfQuestionsAnswered', numberOfQuestionsAnswered);
+      questionModel.set('_blockPageId',questionModel.attributes._parent.attributes._assessment._pageID || null);
+      questionModel.set('_blockBankId',questionModel.attributes._parent.attributes._assessment._quizBankID || null);
 
       this._updateQuestionsState();
       Adapt.assessment.saveState();
@@ -356,6 +358,8 @@ define([
 
         var questionModel = {
           _id: questionComponent.get('_id'),
+          _blockPageId:questionComponent.get('_blockPageId'),
+          _blockBankId:questionComponent.get('_blockBankId'),
           _isCorrect: questionComponent.get('_isCorrect') === undefined ? null : questionComponent.get('_isCorrect')
         };
 
@@ -766,6 +770,8 @@ define([
       var state = {
         id: assessmentConfig._id,
         type: 'article-assessment',
+        preTestPageId: Adapt.course.attributes._assessment._preTestPageId,
+        shouldPretestCompleteCourse: Adapt.course.attributes._assessment._shouldPretestCompleteCourse,
         pageId: this.getParent().get('_id'),
         articleId: this.get('_id'),
         isEnabled: assessmentConfig._isEnabled,

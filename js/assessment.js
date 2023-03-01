@@ -44,10 +44,97 @@ define([
 
       this._setPageProgress();
 
+      if (state.preTestPageId && state.pageId === state.preTestPageId) {
+        this._setLockedPageProgress(state.questions);
+        this._markPageComplete(state);
+      }
+
       this._checkAssessmentsComplete();
 
     },
 
+    _setLockedPageProgress: function(questions){
+      var questionsCollection = _.groupBy(questions, '_blockBankId');      
+      let pageModel = [];
+      var self = this;
+      //group all questions by _blockBankId
+      _.forEach(questionsCollection,function(question) {
+        //forEach question
+        //question._isCorrect array
+        var questionIsCorrect = [];
+        questionIsCorrect.unlockPage = true;
+        //for each question check
+        _.forEach(question,function(data) {
+          if(!data._blockPageId) questionIsCorrect.unlockPage = false;
+        });
+        //unlock page if true
+        for(g=0;g<question.length;g++) questionIsCorrect.push(question[g]._isCorrect);
+        for(h=0;h<questionIsCorrect.length;h++){
+          //check if any of them is false
+          //if false mark page unlock false
+          if(questionIsCorrect[h] === false) questionIsCorrect.unlockPage = false;
+          //or not unlock page if no of questions not matches with no of isCorrect count
+          if(questionIsCorrect.length !== question.length) questionIsCorrect.unlockPage = false;
+        }
+          if(question[0]._blockPageId && questionIsCorrect.unlockPage){
+            pageModel.push(Adapt.findById(question[0]._blockPageId));
+          }
+      });
+      self._unlockPagesByModel(pageModel);
+    },
+    
+    _markPageComplete:function(state){
+      var question = state.questions;
+      var questionIsCorrect = [];
+      var unlockPage = true;
+      //pushing question isCorrect to array
+      //check for 100per progress for assessment
+      for(g=0;g<question.length;g++) questionIsCorrect.push(question[g]._isCorrect);
+      if(questionIsCorrect.length === question.length){
+        for(h=0;h<questionIsCorrect.length;h++){
+            if(questionIsCorrect[h] === false) unlockPage = false;
+        }
+        if(unlockPage){
+          if(state.shouldPretestCompleteCourse)this._unlockPagesByModel(Adapt.contentObjects.models); 
+          else{
+          var unlockingPages = [];
+          let pageModel = [];
+          _.forEach(Adapt.blocks.models,function(pageModel){ 
+            var parentArticleId = pageModel.attributes._parentId;
+            var parentPageModel = Adapt.findById(parentArticleId);
+            if(state.preTestPageId === parentPageModel.attributes._parentId){
+              //assessment article blocks
+              unlockingPages.push(pageModel.attributes._assessment._pageID);
+            }         
+          });
+          unlockingPages = _.uniq(unlockingPages)
+          _.forEach(unlockingPages,function(pageId){
+            pageModel.push(Adapt.findById(pageId));  
+          })
+          this._unlockPagesByModel(pageModel);
+          }
+        }
+      }
+    },
+
+    _unlockPagesByModel: function(pagesModel){
+      _.forEach(pagesModel,function(pageModel){
+        if(pageModel){          
+          var components = pageModel.findDescendantModels('components');
+          for(i=0;i<components.length;i++){
+            components[i].set({
+              _isComplete:true
+            })
+          }
+          pageModel.set({
+              _isComplete:true,
+              _linkedByBlock:true,
+              percentageComplete: 100
+          }); 
+        } 
+      })
+    }, 
+    
     _restoreModelState: function(assessmentModel) {
 
       if (!this._saveStateModel) {

@@ -36,6 +36,23 @@
                   "default": 60,
                   "help": "The minimum score required by the learner to pass the assessment.",
                   "validators": ["number"]
+                },
+                "_shouldPretestCompleteCourse": {
+                  "type": "boolean",
+                  "required": false,
+                  "default": false,
+                  "title": "Pre-test complete course",
+                  "inputType": "Checkbox",
+                  "help": "Set course as completed when pretest is 100% passed",
+                  "validators": []
+                },
+                "_preTestPageId": {
+                  "type": "string",
+                  "required": false,
+                  "title": "Pre-test page id",
+                  "inputType": "Text",
+                  "validators": [
+                  ]
                 }
               }
             }
@@ -253,6 +270,14 @@
               "required": false,
               "legend": "Assessment",
               "properties": {
+                "_pageID": {
+                  "type": "string",
+                  "required": false,
+                  "title": "Page Id",
+                  "inputType": "Text",
+                  "validators": [
+                  ]
+                },
                 "_quizBankID": {
                   "type": "number",
                   "required": false,
