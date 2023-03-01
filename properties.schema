@@ -278,6 +278,14 @@
                   "validators": [
                   ]
                 },
+                "_pageName": {
+                  "type": "string",
+                  "required": false,
+                  "title": "Page Name",
+                  "inputType": "Text",
+                  "validators": [
+                  ]
+                },
                 "_quizBankID": {
                   "type": "number",
                   "required": false,

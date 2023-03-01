@@ -357,6 +357,11 @@ define(["core/js/adapt", "./adapt-assessmentQuestionBank"], function (
         questionModel.attributes._parent.attributes._assessment._quizBankID ||
           null
       );
+      questionModel.set(
+        "_blockPageName",
+        questionModel.attributes._parent.attributes._assessment._pageName ||
+          null
+      );
 
       this._updateQuestionsState();
       Adapt.assessment.saveState();
@@ -422,6 +427,7 @@ define(["core/js/adapt", "./adapt-assessmentQuestionBank"], function (
           _id: questionComponent.get("_id"),
           _blockPageId: questionComponent.get("_blockPageId"),
           _blockBankId: questionComponent.get("_blockBankId"),
+          _blockPageName: questionComponent.get("_blockPageName"),
           _isCorrect:
             questionComponent.get("_isCorrect") === undefined
               ? null
