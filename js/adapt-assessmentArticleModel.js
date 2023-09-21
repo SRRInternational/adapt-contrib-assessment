@@ -249,6 +249,7 @@ define(["core/js/adapt", "./adapt-assessmentQuestionBank"], function (
         var blockModel = children[j];
         var blockAssessmentConfig = blockModel.get("_assessment");
         bankId = blockAssessmentConfig._quizBankID;
+        if (bankId)
         this._questionBanks[bankId].addBlock(blockModel);
       }
     },
@@ -348,6 +349,11 @@ define(["core/js/adapt", "./adapt-assessmentQuestionBank"], function (
         );
         questionModel.set("_parent", parentModel[0]);
       }
+      const _userAnswer = _.indexOf(questionModel.attributes._userAnswer, true);
+      questionModel.set(
+        "_selectedAlphaScore",
+        questionModel.attributes._items[_userAnswer]._alphaScore || null
+      );
       questionModel.set(
         "_blockPageId",
         questionModel.attributes._parent.attributes._assessment._pageID || null
@@ -425,6 +431,7 @@ define(["core/js/adapt", "./adapt-assessmentQuestionBank"], function (
 
         var questionModel = {
           _id: questionComponent.get("_id"),
+          _selectedAlphaScore: questionComponent.get("_selectedAlphaScore"),
           _blockPageId: questionComponent.get("_blockPageId"),
           _blockBankId: questionComponent.get("_blockBankId"),
           _blockPageName: questionComponent.get("_blockPageName"),

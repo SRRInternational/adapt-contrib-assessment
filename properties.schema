@@ -94,6 +94,15 @@
                   "validators": ["number"],
                   "help": "Controls the number of attempts the user is allowed to have on this assessment. Set to -1 (or 0) to allow infinite attempts."
                 },
+                "_activateAlphaScore":{
+                  "type": "boolean",
+                  "required": true,
+                  "default": false,
+                  "title": "Activate alpha score",
+                  "inputType": "Checkbox",
+                  "validators": [],
+                  "help": "Activate alphabet roller result"
+                },
                 "_isPercentageBased": {
                   "type": "boolean",
                   "required": true,
