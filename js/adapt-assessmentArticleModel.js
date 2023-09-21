@@ -543,6 +543,9 @@ define(["core/js/adapt", "./adapt-assessmentQuestionBank"], function (
         var question = questionComponents[i];
         if (question.get("_isCorrect") && question.get("_questionWeight")) {
           score += question.get("_questionWeight");
+        } else if (question.get("_hasItemScoring") && question.get("_selectable") === 1) {
+          const _userAnswer = _.indexOf(question.attributes._userAnswer, true);
+          score += question.attributes._items[_userAnswer]._score;
         }
       }
       return score;
